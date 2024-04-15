@@ -18,5 +18,5 @@ npm ci
 npm run build
 
 # scraping!!
-npm run start
+npm run dev
 ```

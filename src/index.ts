@@ -1,23 +1,32 @@
 import { chromium } from "playwright-chromium";
+import { scrapingNewHome } from "./scraping/sites/NewHome";
+import { scrapingUsedHome } from "./scraping/sites/UsedHome";
 
-(async () => {
+const run = async () => {
   // --------------------
   // setup browser
   // --------------------
   const browser = await chromium.launch({
+    args: [`--lang=ja,en-US,en`],
     headless: true,
   });
 
   // --------------------
-  // create a new page
+  // スクレイピング
   // --------------------
-  const page = await browser.newPage();
-  await page.goto("https://yahoo.co.jp");
-  await page.screenshot({ path: `tmp/sample.png` });
+
+  // 新築戸建て
+  await scrapingNewHome(browser);
+
+  // 中古戸建て
+  await scrapingUsedHome(browser);
 
   // --------------------
-  // close page, browser
+  // close browser
   // --------------------
-  await page.close();
   await browser.close();
-})();
+};
+
+
+// run batch scraping
+run();

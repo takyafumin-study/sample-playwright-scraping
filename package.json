@@ -4,7 +4,8 @@
   "description": "playwrightでスクレイピングするサンプル",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc",
+    "dev": "ts-node src/index.ts",
+    "build": "npx tsc --traceResolution",
     "build:watch": "npx tsc --watch",
     "start": "node ./dist/index.js"
   },
