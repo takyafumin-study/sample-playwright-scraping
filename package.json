@@ -4,7 +4,9 @@
   "description": "playwrightでスクレイピングするサンプル",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/index.ts",
+    "home:new": "ts-node src/ScrapingNewHome.ts",
+    "home:used": "ts-node src/ScrapingUsedHome.ts",
+    "land": "ts-node src/ScrapingLand.ts",
     "build": "npx tsc --traceResolution",
     "build:watch": "npx tsc --watch",
     "start": "node ./dist/index.js"
