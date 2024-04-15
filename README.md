@@ -1,0 +1,2 @@
+# sample-playwright-scraping
+playwrightでスクレイピングするサンプル
