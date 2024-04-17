@@ -19,7 +19,7 @@ const outfile = "output/land.txt";
   for (const prefecture of prefectureList) {
     console.log(`都道府県: ${prefecture}`);
     await scrapingNewHome(
-      `https://myhome.nifty.com/chuko-ikkodate/${prefecture}/search/`,
+      `https://myhome.nifty.com/tochi/${prefecture}/search/`,
       paginationLinkXpath,
       detailPageXpath,
       outfile,

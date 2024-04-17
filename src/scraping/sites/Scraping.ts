@@ -18,7 +18,6 @@ export async function scrapingNewHome(
   // open
   let browser = await createBrowser();
   let context = await browser.newContext();
-  let page = await createNewPage(context);
 
   let nextUrl = url;
   let pageCounter = 0;
@@ -28,16 +27,15 @@ export async function scrapingNewHome(
     if (pageCounter > 1 && pageCounter % 100 === 0) {
       // 100ページごとにブラウザオブジェクト等を再生成
       console.log(`ページ数: ${pageCounter + 1}, ブラウザオブジェクト再生成`);
-      await page.close();
       await context.close();
       await browser.close();
 
       browser = await createBrowser();
       context = await browser.newContext();
-      page = await createNewPage(context);
     }
 
     // ページを開く
+    const page = await createNewPage(context);
     await page.goto(nextUrl);
     const baseUrl = extractBaseUrl(nextUrl);
 
@@ -64,11 +62,11 @@ export async function scrapingNewHome(
     const pagingLink = page.locator(paginationLinkXpath).first();
     nextUrl = baseUrl + (await pagingLink.getAttribute("href"));
 
+    await page.close();
     pageCounter++;
   }
 
   // close
-  await page.close();
   await context.close();
   await browser.close();
 }
