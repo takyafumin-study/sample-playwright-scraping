@@ -1,5 +1,6 @@
 import { prefectureList } from "./scraping/config";
-import { scrapingNewHome } from "./scraping/sites/Scraping";
+import { createBrowser } from "./scraping/libs/playwright";
+import { scraping } from "./scraping/sites/Scraping";
 
 /** xpath：ページネーションリンク */
 const paginationLinkXpath =
@@ -16,14 +17,22 @@ const outfile = "output/used_home.txt";
  */
 (async () => {
   console.log("中古戸建てのスクレイピング, 開始");
+
+  const browser = await createBrowser();
+  const context = await browser.newContext();
+
   for (const prefecture of prefectureList) {
     console.log(`都道府県: ${prefecture}`);
-    await scrapingNewHome(
+    await scraping(
       `https://myhome.nifty.com/chuko-ikkodate/${prefecture}/search/`,
       paginationLinkXpath,
       detailPageXpath,
       outfile,
+      context,
     );
   }
+
+  await context.close();
+  await browser.close();
   console.log("中古戸建てのスクレイピング, 終了");
 })();
